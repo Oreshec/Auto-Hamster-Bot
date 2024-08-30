@@ -67,6 +67,7 @@ def perform_upgrade(df):
         min_cd = df['cooldownSeconds'][:5].min()
         print('Сон на: ', min_cd)
         time.sleep(min_cd)
+        main()
     except Exception:
         print('Ошибка при обновлении карты:\n', traceback.format_exc())
 
