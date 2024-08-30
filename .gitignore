@@ -1,7 +1,7 @@
-/req.py
-.pyc
 /__pycache__/
+.pyc
 conf.py
 req.py
-Oreshec V2.0.xlsx
-Oreshec.xlsx
+.xlsx
+.venv
+.idea
