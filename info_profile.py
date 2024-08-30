@@ -1,33 +1,44 @@
 import requests
 import conf
+import traceback
+
+def make_request(url, headers, payload=""):
+    """Helper function to make API requests and handle errors."""
+    try:
+        response = requests.post(url, data=payload, headers=headers)
+        print(f'Отправка запроса на {url}')
+        print('Status: ', response.status_code)
+        response.raise_for_status()  # Will raise an HTTPError for bad responses
+        return response.json()
+    except requests.RequestException as e:
+        print(f'Ошибка при запросе {url}:\n', e)
+        return None
+    except Exception:
+        print('Ошибка:\n', traceback.format_exc())
+        return None
 
 def get_info_profile():
     url = "https://api.hamsterkombatgame.io/auth/account-info"
-
-    payload = ""
-    headers = {
-        "Authorization": f"{conf.authorization}"}
-
-    response = requests.request("POST", url, data=payload, headers=headers)
-    data = response.json()
-    profile_name = data['accountInfo']['name']
-    print(data)
-    return profile_name
+    headers = {"Authorization": f"{conf.authorization}"}
+    data = make_request(url, headers)
+    if data:
+        profile_name = data.get('accountInfo', {}).get('name', 'Unknown')
+        print('Имя профиля:', profile_name)
+        return profile_name
+    return 'Unknown'
 
 def get_info_money():
     url = "https://api.hamsterkombatgame.io/clicker/sync"
-
-    payload = ""
     headers = {
         "Authorization": f"{conf.authorization}",
         "Priority": "u=4"
     }
-
-    response = requests.request("POST", url, data=payload, headers=headers)
-    data = response.json()
-    info_money = data['clickerUser']['balanceCoins']
-    print(info_money)
-    return info_money
+    data = make_request(url, headers)
+    if data:
+        info_money = int(data.get('clickerUser', {}).get('balanceCoins', 0))
+        print('Монет: ', info_money)
+        return info_money
+    return 0
 
 if __name__ == '__main__':
     get_info_profile()

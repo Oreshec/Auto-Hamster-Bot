@@ -1,4 +1,3 @@
-/conf.py
-/Oreshec.xlsx
 /req.py
-
+.pyc
+/__pycache__/

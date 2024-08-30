@@ -1,3 +1,3 @@
-authorization = "Bearer 1724027395813ZzfjZGD6qIHqe5aaGvZhs4a2gFEHbvEVEmjjtCiP7cSA6sMcA6t9xNvFZpZnlNt01320022597"
-
-
+oreshecV1 = 'Bearer 1724027395813ZzfjZGD6qIHqe5aaGvZhs4a2gFEHbvEVEmjjtCiP7cSA6sMcA6t9xNvFZpZnlNt01320022597'
+oreshecV2 = 'Bearer 172408309023135B6jLdYcQQjd0va4xjLFiT0Q8kEjTG09iemujqI9oYmZMzaQV44oC2WK94w0Yav7294201770'
+authorization = oreshecV1
