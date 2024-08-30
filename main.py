@@ -6,7 +6,7 @@ import conf
 import info_profile
 import upgrade
 
-save_to_excel = True
+save_to_excel = False
 UPGRADE = True
 
 def fetch_data():
@@ -53,15 +53,14 @@ def perform_upgrade(df):
         for i in index:
             price = df.at[i, 'price']
             if money > price:
-                print('Деньга есть')
                 id_card = df.at[i, 'id']
-                print(id_card)
+                print('Деньга на ', id_card, ' есть')
                 cooldown = df.at[i, 'cooldownSeconds']
                 if cooldown <= 0:
                     print('Кд тоже нет покупаю')
                     upgrade.upgrade_card(id_card=id_card)
                 else:
-                    print(f'Кд {cooldown}')
+                    print(f'Кд {cooldown}\n')
             else:
                 print(f'Деньга нет на {df.at[i, "id"]} стоимостью {price} монет. Сейчас деняк: {money}')
 
