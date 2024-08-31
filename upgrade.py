@@ -27,9 +27,9 @@ def upgrade_card(id_card=None):
     headers = {"Authorization": f"{conf.authorization}"}
     data = make_request(url_buy, headers, payload)
     if data:
-        print(f"Покупка карты {id_card} прошла успешно!")
+        print(f"Покупка карты {id_card} прошла успешно!\n")
     else:
-        print('Оплата не прошла или произошла ошибка.')
+        print('Оплата не прошла или произошла ошибка.\n')
 
 if __name__ == '__main__':
     upgrade_card()
