@@ -36,7 +36,6 @@ def get_info_money():
     data = make_request(url, headers)
     if data:
         info_money = int(data.get('clickerUser', {}).get('balanceCoins', 0))
-        print('Монет: ', info_money)
         return info_money
     return 0
 
