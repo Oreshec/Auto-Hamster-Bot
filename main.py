@@ -54,8 +54,8 @@ def perform_upgrade(df):
     """Attempt to upgrade cards based on current money."""
     try:
         index = df.index[:5].tolist()
-        money = info_profile.get_info_money()
         for i in index:
+            money = info_profile.get_info_money()
             cooldown = df.at[i, 'cooldownSeconds']
             id_card = df.at[i, 'id']
             if cooldown <= 0 or np.isnan(cooldown):
