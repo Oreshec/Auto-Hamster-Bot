@@ -26,6 +26,7 @@ async def fetch_data():
                     return await response.json()
                 else:
                     print('Ошибка получения данных от API')
+                    await main()
                     return None
     except:
         print('Произошел прикок в fetch_data', traceback.format_exc())
@@ -58,6 +59,7 @@ async def save_to_excel_file(df):
 async def perform_upgrade(df):
     """Attempt to upgrade cards based on current money asynchronously."""
     try:
+        print('__________________________________________________________________')
         index = df.index[:5].tolist()
         for i in index:
             money = await info_profile.get_info_money()
@@ -76,14 +78,17 @@ async def perform_upgrade(df):
 
         min_cd = df['cooldownSeconds'][:5].min()
         if min_cd == 0:
+            print('__________________________________________________________________')
             await asyncio.sleep(30)
             await main()
         else:
             print('Сон на: ', min_cd)
+            print('__________________________________________________________________')
             await asyncio.sleep(min_cd)
             await main()
     except Exception:
         print('Ошибка при обновлении карты:\n', traceback.format_exc())
+        await main()
 
 
 async def main():
