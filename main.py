@@ -10,21 +10,27 @@ import traceback
 save_to_excel = False
 UPGRADE = True
 
+
 async def fetch_data():
     """Fetch data from the API asynchronously and return as JSON."""
     url_info = "https://api.hamsterkombatgame.io/clicker/upgrades-for-buy"
     headers = {
         "Authorization": f"{conf.authorization}"
     }
-    async with aiohttp.ClientSession() as session:
-        async with session.post(url_info, json="", headers=headers) as response:
-            print(f'Получение информации о картах с {url_info}')
-            print('Status: ', response.status)
-            if response.status == 200:
-                return await response.json()
-            else:
-                print('Ошибка получения данных от API')
-                return None
+    try:
+        async with aiohttp.ClientSession() as session:
+            async with session.post(url_info, json="", headers=headers) as response:
+                print(f'Получение информации о картах с {url_info}')
+                print('Status: ', response.status)
+                if response.status == 200:
+                    return await response.json()
+                else:
+                    print('Ошибка получения данных от API')
+                    return None
+    except:
+        print('Произошел прикок в fetch_data', traceback.format_exc())
+        asyncio.run(main())
+
 
 def process_data(data):
     """Process the data into a DataFrame and filter it."""
@@ -38,6 +44,7 @@ def process_data(data):
         print('Ошибка в обработке данных:\n', traceback.format_exc())
         return None
 
+
 async def save_to_excel_file(df):
     """Save the DataFrame to an Excel file."""
     try:
@@ -46,6 +53,7 @@ async def save_to_excel_file(df):
         print('Save to Excel')
     except Exception:
         print('Ошибка при сохранении в Excel:\n', traceback.format_exc())
+
 
 async def perform_upgrade(df):
     """Attempt to upgrade cards based on current money asynchronously."""
@@ -77,6 +85,7 @@ async def perform_upgrade(df):
     except Exception:
         print('Ошибка при обновлении карты:\n', traceback.format_exc())
 
+
 async def main():
     data = await fetch_data()
     if data is None:
@@ -91,6 +100,7 @@ async def main():
 
     if UPGRADE:
         await perform_upgrade(df)
+
 
 # Running the main function asynchronously
 asyncio.run(main())

@@ -3,6 +3,7 @@ import asyncio
 import time
 import conf
 import traceback
+import main
 
 async def make_request(url, headers, payload):
     """Helper function to make asynchronous API requests and handle errors."""
@@ -17,6 +18,7 @@ async def make_request(url, headers, payload):
         return None
     except Exception:
         print('Ошибка:\n', traceback.format_exc())
+        await main.main()
         return None
 
 async def upgrade_card(id_card=None):
