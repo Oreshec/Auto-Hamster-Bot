@@ -61,14 +61,15 @@ async def perform_upgrade(df):
     try:
         print('__________________________________________________________________')
         index = df.index[:5].tolist()
+        money = await info_profile.get_info_money()
         for i in index:
-            money = await info_profile.get_info_money()
             cooldown = df.at[i, 'cooldownSeconds']
             id_card = df.at[i, 'id']
             if cooldown <= 0 or np.isnan(cooldown):
                 print('Кд на ', id_card, ' нет')
                 price = df.at[i, 'price']
                 if money > price:
+                    money = await info_profile.get_info_money()
                     print('Деньга на ', id_card, ' есть\n')
                     await upgrade.upgrade_card(id_card=id_card)
                 else:
