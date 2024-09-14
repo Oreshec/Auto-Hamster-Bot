@@ -59,9 +59,9 @@ async def save_to_excel_file(df):
 async def perform_upgrade(df):
     """Attempt to upgrade cards based on current money asynchronously."""
     try:
+        money = await info_profile.get_info_money()
         print('__________________________________________________________________')
         index = df.index[:5].tolist()
-        money = await info_profile.get_info_money()
         for i in index:
             cooldown = df.at[i, 'cooldownSeconds']
             id_card = df.at[i, 'id']
@@ -70,8 +70,9 @@ async def perform_upgrade(df):
                 price = df.at[i, 'price']
                 if money > price:
                     money = await info_profile.get_info_money()
-                    print('Деньга на ', id_card, ' есть\n')
-                    await upgrade.upgrade_card(id_card=id_card)
+                    if money > price:
+                        print('Деньга на ', id_card, ' есть\n')
+                        await upgrade.upgrade_card(id_card=id_card)
                 else:
                     print(f'Деньга нет на {df.at[i, "id"]} стоимостью {price} монет. Сейчас деняк: {money}\n')
             elif cooldown > 0:
