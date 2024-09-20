@@ -13,7 +13,7 @@ UPGRADE = True
 
 async def fetch_data():
     """Fetch data from the API asynchronously and return as JSON."""
-    url_info = "https://api.hamsterkombatgame.io/clicker/upgrades-for-buy"
+    url_info = "https://api.hamsterkombatgame.io/interlude/upgrades-for-buy"
     headers = {
         "Authorization": f"{conf.authorization}"
     }
@@ -59,7 +59,7 @@ async def save_to_excel_file(df):
 async def perform_upgrade(df):
     """Attempt to upgrade cards based on current money asynchronously."""
     try:
-        money = await info_profile.get_info_money()
+        diamond = await info_profile.get_info_diamond()
         print('__________________________________________________________________')
         index = df.index[:5].tolist()
         for i in index:
@@ -68,13 +68,13 @@ async def perform_upgrade(df):
             if cooldown <= 0 or np.isnan(cooldown):
                 print('Кд на ', id_card, ' нет')
                 price = df.at[i, 'price']
-                if money > price:
-                    money = await info_profile.get_info_money()
-                    if money > price:
+                if diamond > price:
+                    diamond = await info_profile.get_info_diamond()
+                    if diamond > price:
                         print('Деньга на ', id_card, ' есть\n')
                         await upgrade.upgrade_card(id_card=id_card)
                 else:
-                    print(f'Деньга нет на {df.at[i, "id"]} стоимостью {price} монет. Сейчас деняк: {money}\n')
+                    print(f'Алмазов нет на {df.at[i, "id"]} стоимостью {price} алмазов. Сейчас алмазов: {diamond}\n')
             elif cooldown > 0:
                 print(f'{id_card} в кд {cooldown}\n')
 

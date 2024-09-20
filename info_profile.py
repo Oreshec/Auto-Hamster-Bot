@@ -29,16 +29,16 @@ async def get_info_profile():
         return profile_name
     return 'Unknown'
 
-async def get_info_money():
-    url = "https://api.hamsterkombatgame.io/clicker/sync"
+async def get_info_diamond():
+    url = "https://api.hamsterkombatgame.io/interlude/sync"
     headers = {
         "Authorization": f"{conf.authorization}",
         "Priority": "u=4"
     }
     data = await make_request(url, headers)
     if data:
-        info_money = int(data.get('clickerUser', {}).get('balanceCoins', 0))
-        return info_money
+        info_diamond = float(data.get('clickerUser', {}).get('balanceDiamonds', 0))
+        return info_diamond
     return 0
 
 # Example of how to call the functions asynchronously
