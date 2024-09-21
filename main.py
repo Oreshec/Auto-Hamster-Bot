@@ -68,9 +68,9 @@ async def perform_upgrade(df):
             if cooldown <= 0 or np.isnan(cooldown):
                 print('Кд на ', id_card, ' нет')
                 price = df.at[i, 'price']
-                if diamond > price:
+                if diamond >= price:
                     diamond = await info_profile.get_info_diamond()
-                    if diamond > price:
+                    if diamond >= price:
                         print('Деньга на ', id_card, ' есть\n')
                         await upgrade.upgrade_card(id_card=id_card)
                 else:

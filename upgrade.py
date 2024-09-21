@@ -20,7 +20,7 @@ async def make_request(url, headers, payload):
         return None
 
 async def upgrade_card(id_card=None):
-    url_buy = "https://api.hamsterkombatgame.io/clicker/buy-upgrade"
+    url_buy = "https://api.hamsterkombatgame.io/interlude/buy-upgrade"
     timestamp = int(time.time())
     payload = {
         "upgradeId": f"{id_card}",
