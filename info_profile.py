@@ -44,4 +44,4 @@ async def get_info_diamond():
 
 # Example of how to call the functions asynchronously
 # asyncio.run(get_info_profile())
-asyncio.run(get_info_diamond())
+# asyncio.run(get_info_diamond())
