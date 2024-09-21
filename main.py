@@ -77,17 +77,9 @@ async def perform_upgrade(df):
                     print(f'Алмазов нет на {df.at[i, "id"]} стоимостью {price} алмазов. Сейчас алмазов: {diamond}\n')
             elif cooldown > 0:
                 print(f'{id_card} в кд {cooldown}\n')
-
-        min_cd = df['cooldownSeconds'][:5].min()
-        if min_cd == 0:
-            print('__________________________________________________________________')
-            await asyncio.sleep(30)
-            await main()
-        else:
-            print('Сон на: ', min_cd)
-            print('__________________________________________________________________')
-            await asyncio.sleep(min_cd)
-            await main()
+        print('__________________________________________________________________')
+        await asyncio.sleep(60)
+        await main()
     except Exception:
         print('Ошибка при обновлении карты:\n', traceback.format_exc())
         await main()
