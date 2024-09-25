@@ -38,7 +38,7 @@ def process_data(data):
     try:
         df = pd.DataFrame(data['upgradesForBuy'])
         df = df[(df['isAvailable']) & (~df['isExpired'])]  # Efficient filtering
-        df = df[(df['level'] <= df['maxLevel']) | df['maxLevel'].isna()]
+        df = df[(df['level'] < df['maxLevel']) | df['maxLevel'].isna()]
         df['profit'] = df['price'] / df['profitPerHourDelta']
         df.sort_values(by='profit', inplace=True)
         return df
