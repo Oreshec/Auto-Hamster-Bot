@@ -27,21 +27,21 @@ async def fetch_data():
                 else:
                     print('Ошибка получения данных от API')
                     await main()
-                    return None
     except:
         print('Произошел прикок в fetch_data', traceback.format_exc())
-        asyncio.run(main())
+        await main()
 
 
 def process_data(data):
     """Process the data into a DataFrame and filter it."""
     try:
         df = pd.DataFrame(data['upgradesForBuy'])
-        df = df[(df['isAvailable']) & (~df['isExpired'])]  # Efficient filtering
+        # Efficient filtering
+        df = df[(df['isAvailable']) & (~df['isExpired'])]
         df['profit'] = df['price'] / df['profitPerHourDelta']
         df.sort_values(by='profit', inplace=True)
         return df
-    except Exception:
+    except:
         print('Ошибка в обработке данных:\n', traceback.format_exc())
         return None
 
@@ -52,7 +52,7 @@ async def save_to_excel_file(df):
         name_file = await info_profile.get_info_profile()
         df.to_excel(f"{name_file}.xlsx", sheet_name='hamster')
         print('Save to Excel')
-    except Exception:
+    except:
         print('Ошибка при сохранении в Excel:\n', traceback.format_exc())
 
 
@@ -74,13 +74,14 @@ async def perform_upgrade(df):
                         print('Деньга на ', id_card, ' есть\n')
                         await upgrade.upgrade_card(id_card=id_card)
                 else:
-                    print(f'Алмазов нет на {df.at[i, "id"]} стоимостью {price} алмазов. Сейчас алмазов: {diamond}\n')
+                    print(f'Алмазов нет на {df.at[i, "id"]} стоимостью {
+                    price} алмазов. Сейчас алмазов: {diamond}\n')
             elif cooldown > 0:
                 print(f'{id_card} в кд {cooldown}\n')
         print('__________________________________________________________________')
         await asyncio.sleep(60)
         await main()
-    except Exception:
+    except:
         print('Ошибка при обновлении карты:\n', traceback.format_exc())
         await main()
 
