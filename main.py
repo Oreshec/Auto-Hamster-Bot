@@ -29,7 +29,6 @@ async def fetch_data():
                     await main()
     except:
         print('Произошел прикок в fetch_data', traceback.format_exc())
-        await main()
 
 
 def process_data(data):
@@ -80,27 +79,29 @@ async def perform_upgrade(df):
             elif cooldown > 0:
                 print(f'{id_card} в кд {cooldown}\n')
         print('__________________________________________________________________')
-        await asyncio.sleep(60)
-        await main()
     except:
         print('Ошибка при обновлении карты:\n', traceback.format_exc())
-        await main()
 
 
 async def main():
-    data = await fetch_data()
-    if data is None:
-        return
+    while True:
+        try:
+            data = await fetch_data()
+            if data is None:
+                return
 
-    df = process_data(data)
-    if df is None or df.empty:
-        return
+            df = process_data(data)
+            if df is None or df.empty:
+                return
 
-    if save_to_excel:
-        await save_to_excel_file(df)
+            if save_to_excel:
+                await save_to_excel_file(df)
 
-    if UPGRADE:
-        await perform_upgrade(df)
+            if UPGRADE:
+                await perform_upgrade(df)
+        except Exception as e:
+            print(e)
+            await main()
 
 
 # Running the main function asynchronously
