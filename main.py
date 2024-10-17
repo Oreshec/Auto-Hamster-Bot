@@ -26,7 +26,6 @@ async def fetch_data():
                     return await response.json()
                 else:
                     print('Ошибка получения данных от API')
-                    await main()
     except:
         print('Произошел прикок в fetch_data', traceback.format_exc())
 
@@ -99,6 +98,8 @@ async def main():
 
             if UPGRADE:
                 await perform_upgrade(df)
+
+            await asyncio.sleep(60)
         except Exception as e:
             print(e)
             await main()
