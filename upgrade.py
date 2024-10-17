@@ -9,6 +9,7 @@ async def make_request(url, headers, payload):
     try:
         async with aiohttp.ClientSession() as session:
             async with session.post(url, json=payload, headers=headers) as response:
+                print(response)
                 print('Status: ', response.status)
                 response.raise_for_status()
                 return await response.json()
@@ -19,7 +20,7 @@ async def make_request(url, headers, payload):
         print('Ошибка:\n', traceback.format_exc())
         return None
 
-async def upgrade_card(id_card=None):
+async def upgrade_card(id_card='int_exchange_token'):
     url_buy = "https://api.hamsterkombatgame.io/interlude/buy-upgrade"
     timestamp = int(time.time())
     payload = {
