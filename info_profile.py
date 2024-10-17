@@ -38,7 +38,6 @@ async def get_info_diamond():
     data = await make_request(url, headers)
     if data:
         info_diamond = float(data.get('interludeUser', {}).get('balanceDiamonds', 0))
-        print(info_diamond)
         return info_diamond
     return 0
 
