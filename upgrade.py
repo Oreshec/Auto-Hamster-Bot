@@ -20,14 +20,14 @@ async def make_request(url, headers, payload):
         print('Ошибка:\n', traceback.format_exc())
         return None
 
-async def upgrade_card(id_card='int_exchange_token'):
+async def upgrade_card(id_card, key):
     url_buy = "https://api.hamsterkombatgame.io/interlude/buy-upgrade"
     timestamp = int(time.time())
     payload = {
         "upgradeId": f"{id_card}",
         "timestamp": timestamp
     }
-    headers = {"Authorization": f"{conf.authorization}"}
+    headers = {"Authorization": f"{key}"}
     data = await make_request(url_buy, headers, payload)
     if data:
         print(f"Покупка карты {id_card} прошла успешно!\n")

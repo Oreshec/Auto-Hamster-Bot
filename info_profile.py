@@ -19,9 +19,9 @@ async def make_request(url, headers, payload=None):
         print('Ошибка:\n', traceback.format_exc())
         return None
 
-async def get_info_profile():
+async def get_info_profile(key):
     url = "https://api.hamsterkombatgame.io/auth/account-info"
-    headers = {"Authorization": f"{conf.authorization}"}
+    headers = {"Authorization": f"{key}"}
     data = await make_request(url, headers)
     if data:
         profile_name = data.get('accountInfo', {}).get('name', 'Unknown')
@@ -29,10 +29,10 @@ async def get_info_profile():
         return profile_name
     return 'Unknown'
 
-async def get_info_diamond():
+async def get_info_diamond(key):
     url = "https://api.hamsterkombatgame.io/interlude/sync"
     headers = {
-        "Authorization": f"{conf.authorization}",
+        "Authorization": f"{key}",
         "Priority": "u=4"
     }
     data = await make_request(url, headers)
