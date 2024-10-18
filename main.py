@@ -73,8 +73,7 @@ async def perform_upgrade(df):
                         print('Деньга на ', id_card, ' есть\n')
                         await upgrade.upgrade_card(id_card=id_card)
                 else:
-                    print(f'Алмазов нет на {df.at[i, "id"]} стоимостью {
-                    price} алмазов. Сейчас алмазов: {diamond}\n')
+                    print(f'Алмазов нет на {df.at[i, "id"]} стоимостью {price} алмазов. Сейчас алмазов: {diamond}\n')
             elif cooldown > 0:
                 print(f'{id_card} в кд {cooldown}\n')
         print('__________________________________________________________________')
@@ -98,10 +97,9 @@ async def main():
 
             if UPGRADE:
                 await perform_upgrade(df)
-
             await asyncio.sleep(60)
-        except Exception as e:
-            print(e)
+        except:
+            print(traceback.format_exc())
             await main()
 
 
