@@ -13,7 +13,7 @@ https://youtu.be/PTdUmkT-yas?si=rM84Y8TGteJF-1LA
 ## Код из видео
 
 ```js
-{
+if(location.hostname === "hamsterkombat.io") {
     const original_indexOf = Array.prototype.indexOf
     Array.prototype.indexOf = function (...args) {
         if(JSON.stringify(this) === JSON.stringify(["android", "android_x", "ios"])) {
@@ -25,6 +25,7 @@ https://youtu.be/PTdUmkT-yas?si=rM84Y8TGteJF-1LA
         return original_indexOf.apply(this, args)
     }
 }
+
 ```
 
 ![image](https://imgur.com/h1IhPqh.png)
