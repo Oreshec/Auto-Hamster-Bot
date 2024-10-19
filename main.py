@@ -26,6 +26,8 @@ async def fetch_data(key):
                     return await response.json()
                 else:
                     print('Ошибка получения данных от API')
+                    await main()
+
     except:
         print('Произошел прикок в fetch_data', traceback.format_exc())
 
@@ -85,6 +87,7 @@ async def main():
     while True:
         try:
             for key in conf.authorization:
+                await info_profile.get_info_profile(key=key)
                 data = await fetch_data(key=key)
                 if data is None:
                     return
