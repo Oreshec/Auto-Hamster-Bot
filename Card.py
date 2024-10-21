@@ -1,88 +1,110 @@
 class Card:
-    class Card:
-        def __init__(self, card_id, card_name, card_cooldown, card_price, card_profit_per_hour_delta, card_is_available,
-                     card_is_expired):
-            self.card_is_expired = card_is_expired
-            self.card_is_available = card_is_available
-            self.card_id = card_id
-            self.card_name = card_name
-            self.card_cooldown = card_cooldown
-            self.price = card_price
-            self.profit_per_hour_delta = card_profit_per_hour_delta
-            self.profit = self.price / self.profit_per_hour_delta
+	def __init__(self, id, name, cooldownSeconds, price, profitPerHourDelta, isAvailable, isExpired,
+	             profitPerHour, condition, section, level, currentProfitPerHour, totalCooldownSeconds, maxLevel=None,
+	             toggle=None, expiresAt=None):
+		self._maxLevel = maxLevel
+		self._id = id
+		self._name = name
+		self._cooldownSeconds = cooldownSeconds
+		self._price = price
+		self._profitPerHourDelta = profitPerHourDelta
+		self._isAvailable = isAvailable
+		self._isExpired = isExpired
+		self._profit = price / profitPerHourDelta
+		self._profitPerHour = profitPerHour
+		self._condition = condition
+		self._section = section
+		self._level = level
+		self._currentProfitPerHour = currentProfitPerHour
+		self._totalCooldownSeconds = totalCooldownSeconds
 
-        def __repr__(self):
-            return f"Student(card_name={self.card_name}, price={self.price}, card_cooldown={self.card_cooldown})"
+	# Геттеры
+	def get_id(self):
+		return self._id
 
-        # Геттер для card_is_expired
-        @property
-        def card_is_expired(self):
-            return self._card_is_expired
+	def get_name(self):
+		return self._name
 
-        # Геттер для card_is_available
-        @property
-        def card_is_available(self):
-            return self._card_is_available
+	def get_cooldownSeconds(self):
+		return self._cooldownSeconds
 
-        # Геттер для card_id
-        @property
-        def card_id(self):
-            return self._card_id
+	def get_price(self):
+		return self._price
 
-        # Геттер для card_name
-        @property
-        def card_name(self):
-            return self._card_name
+	def get_profitPerHourDelta(self):
+		return self._profitPerHourDelta
 
-        # Геттер для cooldown
-        @property
-        def card_cooldown(self):
-            return self._cooldown
+	def get_isAvailable(self):
+		return self._isAvailable
 
-        # Геттер для price
-        @property
-        def price(self):
-            return self._price
+	def get_isExpired(self):
+		return self._isExpired
 
-        # Геттер для profit_per_hour_delta
-        @property
-        def profit_per_hour_delta(self):
-            return self._profit_per_hour_delta
+	def get_profit(self):
+		return self._profit
 
-        # Геттер для profit
-        @property
-        def profit(self):
-            return self._profit
+	def get_profitPerHour(self):
+		return self._profitPerHour
 
-        # Теперь используем приватные атрибуты с нижним подчёркиванием
-        @card_is_expired.setter
-        def card_is_expired(self, value):
-            self._card_is_expired = value
+	def get_condition(self):
+		return self._condition
 
-        @card_is_available.setter
-        def card_is_available(self, value):
-            self._card_is_available = value
+	def get_section(self):
+		return self._section
 
-        @card_id.setter
-        def card_id(self, value):
-            self._card_id = value
+	def get_level(self):
+		return self._level
 
-        @card_name.setter
-        def card_name(self, value):
-            self._card_name = value
+	def get_currentProfitPerHour(self):
+		return self._currentProfitPerHour
 
-        @card_cooldown.setter
-        def card_cooldown(self, value):
-            self._cooldown = value
+	def get_totalCooldownSeconds(self):
+		return self._totalCooldownSeconds
 
-        @price.setter
-        def price(self, value):
-            self._price = value
+	def get_maxLevel(self):
+		return self._maxLevel
 
-        @profit_per_hour_delta.setter
-        def profit_per_hour_delta(self, value):
-            self._profit_per_hour_delta = value
+	# Сеттеры
+	def set_id(self, id):
+		self._id = id
 
-        @profit.setter
-        def profit(self, value):
-            self._profit = value
+	def set_name(self, name):
+		self._name = name
+
+	def set_cooldownSeconds(self, cooldownSeconds):
+		self._cooldownSeconds = cooldownSeconds
+
+	def set_price(self, price):
+		self._price = price
+		self._profit = price / self._profitPerHourDelta  # обновление profit при изменении цены
+
+	def set_profitPerHourDelta(self, profitPerHourDelta):
+		self._profitPerHourDelta = profitPerHourDelta
+		self._profit = self._price / profitPerHourDelta  # обновление profit при изменении delta
+
+	def set_isAvailable(self, isAvailable):
+		self._isAvailable = isAvailable
+
+	def set_isExpired(self, isExpired):
+		self._isExpired = isExpired
+
+	def set_profitPerHour(self, profitPerHour):
+		self._profitPerHour = profitPerHour
+
+	def set_condition(self, condition):
+		self._condition = condition
+
+	def set_section(self, section):
+		self._section = section
+
+	def set_level(self, level):
+		self._level = level
+
+	def set_currentProfitPerHour(self, currentProfitPerHour):
+		self._currentProfitPerHour = currentProfitPerHour
+
+	def set_totalCooldownSeconds(self, totalCooldownSeconds):
+		self._totalCooldownSeconds = totalCooldownSeconds
+
+	def set_maxLevel(self, maxLevel):
+		self._maxLevel = maxLevel
